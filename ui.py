@@ -5,11 +5,21 @@ from bpy.props import (
     FloatVectorProperty,
     EnumProperty,
     BoolProperty,
+    IntVectorProperty,
 )
 
 
-class StopWatch(bpy.types.Panel):
-    bl_idname = "StopWatch"
+class SW_OT_Start(bpy.types.Operator):
+    bl_idname = "sw.start"
+    bl_label = "Start"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):
+        return {'FINISHED'}
+
+
+class SW_PT_Menu(bpy.types.Panel):
+    bl_idname = "SW_Menu"
     bl_label = "SimpleStopoWatch"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
@@ -22,9 +32,12 @@ class StopWatch(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
         scene = context.scene
+        wm = bpy.context.window_manager
 
         layout.prop(scene, "color")
+
         layout.prop(scene, "font_size")
+
         layout.prop(scene, "margin", text="margin")
 
         layout.separator()
@@ -38,8 +51,17 @@ class StopWatch(bpy.types.Panel):
         row = layout.row()
         row.prop(scene, "offset", text="")
 
+        layout.separator()
+
+        layout.label(text="StopWatch:")
+        layout.operator(SW_OT_Start.bl_idname, text="Start")
+        # layout.operator("Stop")
+
+        layout.separator()
 
 # Initialize Properties
+
+
 def init_props():
     scene = bpy.types.Scene
 
@@ -59,10 +81,37 @@ def init_props():
         max=255
     )
 
+    scene.margin = IntProperty(
+        name="Margin",
+        description="Margin",
+        default=0,
+        min=0,
+        max=1000
+    )
+
+    scene.align = EnumProperty(
+        name="Align",
+        items=[
+            ('LEFT', "Left", ""),
+            ('CENTER', "Center", ""),
+            ('RIGHT', "Right", ""),
+        ],
+        default='LEFT'
+    )
+
+    scene.offset = IntVectorProperty(
+        name="Offset",
+        default=(0, 0),
+        size=2,
+        subtype='XYZ',
+    )
+
+
 # Erase Propeties
-
-
 def clear_props():
     scene = bpy.types.Scene
     del scene.color
     del scene.font_size
+    del scene.margin
+    del scene.align
+    del scene.offset

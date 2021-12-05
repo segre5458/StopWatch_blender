@@ -1,4 +1,6 @@
 import bpy
+from . import ui
+
 bl_info = {
     "name": "SimpleStopwatch",
     "author": "segre",
@@ -13,20 +15,15 @@ bl_info = {
     "category": "System",
 }
 
-if "bpy" in locals():
-    import imp
-    imp.reload(ui)
-else:
-    from . import ui
 
-
-def menu_fn(self, context):
-    self.layout.separator()
-    self.layout.operator(ui.StopWatch.bl_idname)
+# def menu_fn(self, context):
+#     self.layout.separator()
+#     self.layout.operator(ui.SW_PT_Menu.bl_idname)
 
 
 classes = [
-    ui.StopWatch,
+    ui.SW_PT_Menu,
+    ui.SW_OT_Start,
 ]
 
 
