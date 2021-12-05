@@ -57,7 +57,7 @@ class SW_PT_Menu(bpy.types.Panel):
 
         layout.prop(scene, "font_size")
 
-        layout.prop(scene, "margin", text="margin")
+        layout.prop(scene, "margin")
 
         layout.separator()
 
