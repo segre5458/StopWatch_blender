@@ -24,6 +24,8 @@ bl_info = {
 classes = [
     ui.SW_PT_Menu,
     ui.SW_OT_Start,
+    ui.SW_OT_Stop,
+    ui.SW_OT_Reset,
 ]
 
 

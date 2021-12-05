@@ -1,3 +1,4 @@
+from typing import Text
 import bpy
 from bpy.props import (
     IntProperty,
@@ -12,6 +13,24 @@ from bpy.props import (
 class SW_OT_Start(bpy.types.Operator):
     bl_idname = "sw.start"
     bl_label = "Start"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):
+        return {'FINISHED'}
+
+
+class SW_OT_Stop(bpy.types.Operator):
+    bl_idname = "sw.stop"
+    bl_label = "Stop"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):
+        return {'FINISHED'}
+
+
+class SW_OT_Reset(bpy.types.Operator):
+    bl_idname = "sw.reset"
+    bl_label = "Reset"
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
@@ -55,7 +74,8 @@ class SW_PT_Menu(bpy.types.Panel):
 
         layout.label(text="StopWatch:")
         layout.operator(SW_OT_Start.bl_idname, text="Start")
-        # layout.operator("Stop")
+        layout.operator(SW_OT_Stop.bl_idname, text="Stop")
+        layout.operator(SW_OT_Reset.bl_idname, text="Reset")
 
         layout.separator()
 
