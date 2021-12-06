@@ -28,11 +28,12 @@ class SW_OT_Stop(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        global stop
         stop = time.time()
-        self.report({'INFO'}, "hoge")
+        # self.report({'INFO'}, "hoge")
         self.report({'INFO'}, str(stop - start))
         # self.report({'INFO'}, str(stop))
-        self.report({'INFO'}, "huga")
+        # self.report({'INFO'}, "huga")
 
         return {'FINISHED'}
 
@@ -43,6 +44,8 @@ class SW_OT_Reset(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        start = stop
+        self.report({'INFO'}, str(stop - start))
         return {'FINISHED'}
 
 
