@@ -16,9 +16,12 @@ bl_info = {
 }
 
 
-# def menu_fn(self, context):
-#     self.layout.separator()
-#     self.layout.operator(ui.SW_PT_Menu.bl_idname)
+def menu_fn(self, context):
+    self.layout.separator()
+    self.layout.operator(ui.SW_PT_Menu.bl_idname)
+    self.layout.operator(ui.SW_OT_Start.bl_idname)
+    self.layout.operator(ui.SW_OT_Stop.bl_idname)
+    self.layout.operator(ui.SW_OT_Reset.bl_idname)
 
 
 classes = [

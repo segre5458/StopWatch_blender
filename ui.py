@@ -1,4 +1,5 @@
 from typing import Text
+import time
 import bpy
 from bpy.props import (
     IntProperty,
@@ -16,6 +17,8 @@ class SW_OT_Start(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        global start
+        start = time.time()
         return {'FINISHED'}
 
 
@@ -25,6 +28,12 @@ class SW_OT_Stop(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        stop = time.time()
+        self.report({'INFO'}, "hoge")
+        self.report({'INFO'}, str(stop - start))
+        # self.report({'INFO'}, str(stop))
+        self.report({'INFO'}, "huga")
+
         return {'FINISHED'}
 
 
